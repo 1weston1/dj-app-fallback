@@ -1,0 +1,209 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #202020;
+  color: #f0f0f0;
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+header {
+  background: #333;
+  padding: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* DJ Lessons & Error Box */
+#djLessons {
+  max-width: 800px;
+  margin: 10px auto;
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: left;
+}
+
+#errorBox {
+  background: #b71c1c;
+  padding: 10px;
+  margin: 10px auto;
+  max-width: 600px;
+  border-radius: 6px;
+  display: none;
+}
+
+/* Controller Layout */
+#controller {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 20px auto;
+  background: #2f2f2f;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.deck {
+  background: #242424;
+  width: 320px;
+  margin: 10px;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.jogWheel {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(#555, #000);
+  margin: 0 auto 10px auto;
+  position: relative;
+}
+.jogLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.padsRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+.padBtn {
+  background: #444;
+  width: 60px;
+  height: 40px;
+  margin: 4px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.padBtn:hover {
+  background: #666;
+}
+
+.deckControls {
+  text-align: center;
+  margin-top: 10px;
+}
+.deckControls label {
+  margin-right: 5px;
+}
+.deckControls input[type="range"] {
+  width: 120px;
+}
+
+.waveformContainer {
+  margin-top: 10px;
+  background: #444;
+  height: 80px;
+}
+
+.loopControls {
+  text-align: center;
+  margin-top: 10px;
+}
+.loopControls button {
+  background: #ff9800;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  margin: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.loopControls button:hover {
+  background: #f57c00;
+}
+
+.advancedControls {
+  text-align: center;
+  margin-top: 10px;
+}
+.advancedControls button {
+  background: #9c27b0;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  margin: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.advancedControls button:hover {
+  background: #7b1fa2;
+}
+
+.trackLoader {
+  background: #333;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px auto;
+  width: 200px;
+  text-align: left;
+}
+.trackLoader label,
+.trackLoader input,
+.trackLoader select {
+  display: block;
+  margin: 5px 0;
+}
+.trackLoader button {
+  background: #ff4081;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+.trackLoader button:hover {
+  background: #e91e63;
+}
+
+/* Mixer */
+#mixer {
+  background: #1e1e1e;
+  min-width: 180px;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px;
+  text-align: center;
+}
+#mixer h2 {
+  margin-bottom: 10px;
+}
+#mixer button {
+  background: #4caf50;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 5px;
+}
+#mixer button:hover {
+  background: #388e3c;
+}
+#crossfader {
+  width: 150px;
+  margin-top: 10px;
+}

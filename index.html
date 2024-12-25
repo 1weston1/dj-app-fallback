@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>DJ App Fallback + Secure + Tests</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Tone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.42/Tone.js"></script>
+
+    <!-- WaveSurfer.js -->
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+
+    <!-- (Optional) music-metadata-browser for ID3 reading -->
+    <script src="https://unpkg.com/music-metadata-browser/dist/music-metadata-browser.umd.js"></script>
+
+    <!-- QUnit CSS (for unit tests) -->
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/qunit/qunit-2.19.2.css"
+      integrity="sha256-V8tyOZAtubGukMuN2pUJQgBIo3l/qaMsSp6zxvkhBGw="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>DJ App Fallback (Denon-Style) + Security + Tests</h1>
+    </header>
+
+    <!-- DJ Lessons & Resources -->
+    <section id="djLessons">
+      <h2>DJ Lessons & Resources</h2>
+      <ul>
+        <li><a href="https://www.digitaldjtips.com/" target="_blank">Digital DJ Tips</a></li>
+        <li><a href="https://djtechtools.com/" target="_blank">DJ TechTools</a></li>
+        <li><a href="https://serato.com/academy" target="_blank">Serato Academy</a></li>
+        <li><a href="https://www.reddit.com/r/DJs/" target="_blank">Reddit /r/DJs</a></li>
+      </ul>
+      <p>
+        Check <em>DJ_error_log.txt</em> if audio fails 
+        (<strong>403 errors</strong> or <strong>AudioContext not allowed</strong>).
+      </p>
+    </section>
+
+    <!-- Error Box for user-friendly logs -->
+    <div id="errorBox" style="display:none;">
+      <p id="errorMessage"></p>
+    </div>
+
+    <!-- Main DJ Controller -->
+    <section id="controller">
+      <!-- LEFT DECK -->
+      <div class="deck" id="deckLeft">
+        <div class="jogWheel" id="jogWheelLeft">
+          <div class="jogLabel">Left Deck</div>
+        </div>
+
+        <div class="padsRow" id="padsLeft">
+          <button class="padBtn" data-sample="sample1">Pad1</button>
+          <button class="padBtn" data-sample="sample2">Pad2</button>
+          <button class="padBtn" data-sample="sample3">Pad3</button>
+          <button class="padBtn" data-sample="sample4">Pad4</button>
+        </div>
+
+        <div class="deckControls">
+          <label>Vol A</label>
+          <input type="range" id="volumeA" min="0" max="1" step="0.01" value="1"/>
+        </div>
+
+        <!-- Waveform -->
+        <div class="waveformContainer" id="waveformLeft"></div>
+
+        <!-- Loop Controls -->
+        <div class="loopControls">
+          <button id="leftLoopInBtn">IN</button>
+          <button id="leftLoopOutBtn">OUT</button>
+          <button id="leftLoopToggleBtn">Loop On/Off</button>
+        </div>
+
+        <!-- Advanced Controls -->
+        <div class="advancedControls">
+          <button id="leftQuantizeBtn">Quantize</button>
+          <button id="leftHalfSpeedBtn">1/2x</button>
+          <button id="leftDoubleSpeedBtn">2x</button>
+        </div>
+
+        <!-- Track Loader -->
+        <div class="trackLoader">
+          <label for="selectLeft">Library Track:</label>
+          <select id="selectLeft">
+            <option value="">--Select--</option>
+            <option value="track1">Hip Hop Loop</option>
+            <option value="track2">House Beat</option>
+          </select>
+          <button id="loadLeftBtn">Load Left</button>
+
+          <label>Custom URL:</label>
+          <input type="text" id="customLeftUrl" placeholder="Paste URL"/>
+          <button id="loadLeftUrlBtn">Load URL Left</button>
+        </div>
+      </div>
+
+      <!-- MIXER -->
+      <div id="mixer">
+        <h2>Mixer</h2>
+        <button id="playBtn">Play</button>
+        <button id="tempoMatchBtn">Tempo Match</button>
+        <label for="crossfader">Crossfader</label>
+        <input type="range" id="crossfader" min="0" max="1" step="0.01" value="0.5"/>
+      </div>
+
+      <!-- RIGHT DECK -->
+      <div class="deck" id="deckRight">
+        <div class="jogWheel" id="jogWheelRight">
+          <div class="jogLabel">Right Deck</div>
+        </div>
+
+        <div class="padsRow" id="padsRight">
+          <button class="padBtn" data-sample="sample5">Pad1</button>
+          <button class="padBtn" data-sample="sample6">Pad2</button>
+          <button class="padBtn" data-sample="sample7">Pad3</button>
+          <button class="padBtn" data-sample="sample8">Pad4</button>
+        </div>
+
+        <div class="deckControls">
+          <label>Vol B</label>
+          <input type="range" id="volumeB" min="0" max="1" step="0.01" value="1"/>
+        </div>
+
+        <div class="waveformContainer" id="waveformRight"></div>
+
+        <div class="loopControls">
+          <button id="rightLoopInBtn">IN</button>
+          <button id="rightLoopOutBtn">OUT</button>
+          <button id="rightLoopToggleBtn">Loop On/Off</button>
+        </div>
+
+        <div class="advancedControls">
+          <button id="rightQuantizeBtn">Quantize</button>
+          <button id="rightHalfSpeedBtn">1/2x</button>
+          <button id="rightDoubleSpeedBtn">2x</button>
+        </div>
+
+        <!-- Track Loader -->
+        <div class="trackLoader">
+          <label for="selectRight">Library Track:</label>
+          <select id="selectRight">
+            <option value="">--Select--</option>
+            <option value="track1">Hip Hop Loop</option>
+            <option value="track2">House Beat</option>
+          </select>
+          <button id="loadRightBtn">Load Right</button>
+
+          <label>Custom URL:</label>
+          <input type="text" id="customRightUrl" placeholder="Paste URL"/>
+          <button id="loadRightUrlBtn">Load URL Right</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main logic + QUnit test runner -->
+    <script src="script.js"></script>
+
+    <!-- QUnit + Our Tests -->
+    <script
+      src="https://code.jquery.com/qunit/qunit-2.19.2.js"
+      integrity="sha256-/x7gdXyC0Tn+E4uZmICkP1CrvChq4i3t9evqO46qioU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="test.js"></script>
+
+    <!-- QUnit placeholders -->
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+  </body>
+</html>
