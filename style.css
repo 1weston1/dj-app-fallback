@@ -9,18 +9,32 @@ body {
   background: #202020;
   color: #f0f0f0;
   font-family: sans-serif;
-  text-align: center;
   margin: 0;
+  text-align: center;
 }
 
 header {
   background: #333;
   padding: 10px;
+  text-transform: uppercase;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
+/* Christmas Banner */
+#christmasBanner {
+  background: #8b0000; /* dark red */
+  color: #f0f0f0;
+  padding: 10px;
+  font-size: 1.2rem;
+  animation: blinkBanner 2s infinite;
+}
+
+@keyframes blinkBanner {
+  0%, 100% {
+    background-color: #8b0000;
+  }
+  50% {
+    background-color: #b22222; /* firebrick */
+  }
 }
 
 /* DJ Lessons & Error Box */
@@ -32,14 +46,13 @@ header h1 {
   border-radius: 6px;
   text-align: left;
 }
-
 #errorBox {
   background: #b71c1c;
   padding: 10px;
   margin: 10px auto;
   max-width: 600px;
   border-radius: 6px;
-  display: none; /* hidden by default, toggled in JS */
+  display: none;
 }
 
 /* Controller Layout */
@@ -51,6 +64,7 @@ header h1 {
   max-width: 1200px;
   margin: 20px auto;
   background: #2f2f2f;
+  border: 2px solid #8b0000;
   border-radius: 8px;
   padding: 20px;
 }
@@ -61,6 +75,7 @@ header h1 {
   margin: 10px;
   border-radius: 6px;
   padding: 10px;
+  border: 1px dashed #ff3131; /* red dashed for xmas style */
 }
 
 .jogWheel {
@@ -70,7 +85,9 @@ header h1 {
   background: radial-gradient(#555, #000);
   margin: 0 auto 10px auto;
   position: relative;
+  border: 3px solid #99ff99; /* green border for Xmas */
 }
+
 .jogLabel {
   position: absolute;
   top: 50%;
@@ -95,10 +112,14 @@ header h1 {
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
-  transition: background 0.2s;
 }
 .padBtn:hover {
   background: #666;
+}
+
+/* Xmas color for hovered pads */
+.padBtn:hover {
+  background: #fa8072; /* salmon, for fun */
 }
 
 .deckControls {
@@ -182,6 +203,7 @@ header h1 {
 /* Mixer */
 #mixer {
   background: #1e1e1e;
+  border: 2px solid #ff3131;
   min-width: 180px;
   padding: 10px;
   border-radius: 6px;
@@ -190,6 +212,7 @@ header h1 {
 }
 #mixer h2 {
   margin-bottom: 10px;
+  color: #00ff7f; /* Xmas greenish */
 }
 #mixer button {
   background: #4caf50;

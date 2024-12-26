@@ -2,15 +2,15 @@
  1) Basic Libraries (with fallback approach)
 ***********************************************/
 /**
- * If remote links fail (403 or insecure), we load "test.mp3" locally.
- * Make sure test.mp3 is in this same folder if you want real fallback audio.
+ * If remote links fail (e.g., 403 or blocked),
+ * we load "test.mp3" (a local file).
+ * Place "test.mp3" in the same folder if you want real fallback.
  */
 const FALLBACK_URL = "test.mp3";
 
 /** 
- * Extended library with five tracks:
- *  track1, track2 from original
- *  track3, track4, track5 newly added
+ * We have track1..track5 from previous examples, plus Xmas themed track6, track7 
+ * from a second "imaginary" source or another site.
  */
 const trackLibrary = {
   track1: {
@@ -32,11 +32,21 @@ const trackLibrary = {
   track5: {
     url: "https://cdn.pixabay.com/download/audio/2023/05/17/audio_6dcb156333.mp3?filename=fashionable-upbeat-corporate-146553.mp3",
     bpm: 128
+  },
+  // Xmas tracks from hypothetical second source or a different link
+  track6: {
+    url: "https://cdn.pixabay.com/download/audio/2022/12/02/audio_89aabbccdd.mp3?filename=xmas-bells-demo.mp3",
+    bpm: 100
+  },
+  track7: {
+    url: "https://cdn.pixabay.com/download/audio/2022/12/15/audio_ffaabb1122.mp3?filename=xmas-carol-chorus.mp3",
+    bpm: 85
   }
 };
 
 /** 
- * Sample library for performance pads
+ * Sample library for performance pads 
+ * (unchanged from previous examples, but Xmas pads possible if you want)
  */
 const sampleLib = {
   sample1: "https://cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3",
@@ -112,8 +122,12 @@ function clearError() {
 
 /***********************************************
  4) URL Security
+   We disclaim YouTube won't load raw audio 
+   due to DRM. We check for https://
 ***********************************************/
 function isSecureUrl(url) {
+  // If user tries "https://youtube.com/watch?v=...", it won't load anyway.
+  // We just do a basic check for "https://"
   return url.startsWith("https://");
 }
 
@@ -165,7 +179,7 @@ function initWaveSurfers() {
 ***********************************************/
 function loadTrackLeft(url) {
   if (!isSecureUrl(url)) {
-    showError("Left deck: Insecure URL. Fallback track used.");
+    showError("Left deck: Insecure or YouTube link, fallback used.");
     waveSurferLeft.load(FALLBACK_URL);
     return;
   }
@@ -187,7 +201,7 @@ function loadTrackLeft(url) {
 
 function loadTrackRight(url) {
   if (!isSecureUrl(url)) {
-    showError("Right deck: Insecure URL. Fallback track used.");
+    showError("Right deck: Insecure or YouTube link, fallback used.");
     waveSurferRight.load(FALLBACK_URL);
     return;
   }
@@ -296,7 +310,7 @@ crossfader.addEventListener("input", e => {
 });
 
 /***********************************************
-10) Performance Pads (Tone.js)
+ 10) Performance Pads (Tone.js)
 ***********************************************/
 function playSample(sampleUrl) {
   const player = new Tone.Player(sampleUrl).toDestination();
@@ -316,7 +330,7 @@ padsRight.forEach(btn => {
 });
 
 /***********************************************
-11) Jog Wheels
+ 11) Jog Wheels
 ***********************************************/
 jogWheelLeft.addEventListener("click", () => {
   alert("Left Jog clicked! (Scratching not implemented.)");
@@ -326,15 +340,16 @@ jogWheelRight.addEventListener("click", () => {
 });
 
 /***********************************************
-12) Tempo Match
+ 12) Tempo Match
 ***********************************************/
 tempoMatchBtn.addEventListener("click", () => {
-  alert("Tempo match not fully implemented in this scaffold.");
+  alert("Tempo match not fully implemented in this Xmas scaffold.");
 });
 
 /***********************************************
-13) Manual Looping
+ 13) Manual Looping
 ***********************************************/
+// waveSurferLeft on finish is set in initWaveSurfers
 waveSurferLeft && waveSurferLeft.on("finish", () => {
   if (leftLoopActive && leftLoopIn !== null && leftLoopOut !== null) {
     waveSurferLeft.seekTo(leftLoopIn / waveSurferLeft.getDuration());
@@ -385,7 +400,7 @@ rightLoopToggleBtn.addEventListener("click", () => {
 });
 
 /***********************************************
-14) Advanced Controls
+ 14) Advanced Controls
 ***********************************************/
 // Left
 leftQuantizeBtn.addEventListener("click", () => {
@@ -426,7 +441,7 @@ rightDoubleSpeedBtn.addEventListener("click", () => {
 });
 
 /***********************************************
-15) On DOM load
+ 15) On DOM load
 ***********************************************/
 document.addEventListener("DOMContentLoaded", () => {
   initWaveSurfers();
