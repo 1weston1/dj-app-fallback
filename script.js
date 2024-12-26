@@ -2,51 +2,45 @@
  1) Basic Libraries (with fallback approach)
 ***********************************************/
 /**
- * If remote links fail (e.g., 403 or blocked),
- * we load "test.mp3" (a local file).
- * Place "test.mp3" in the same folder if you want real fallback.
+ * Fallback if remote fails => load "test.mp3" locally.
+ * Place a short local "test.mp3" in this same folder.
  */
 const FALLBACK_URL = "test.mp3";
 
 /** 
- * We have track1..track5 from previous examples, plus Xmas themed track6, track7 
- * from a second "imaginary" source or another site.
+ * A more robust library with free tracks from Mixkit or other free sources.
  */
 const trackLibrary = {
+  // Using stable direct .mp3 from Mixkit as examples:
   track1: {
-    url: "https://cdn.pixabay.com/download/audio/2022/11/11/audio_eea39c0897.mp3?filename=hip-hop-loop-12295.mp3",
+    url: "https://assets.mixkit.co/music/preview/mixkit-city-walk-117.mp3",
     bpm: 95
   },
   track2: {
-    url: "https://cdn.pixabay.com/download/audio/2022/12/07/audio_d444a22479.mp3?filename=house-beat-12624.mp3",
-    bpm: 125
-  },
-  track3: {
-    url: "https://cdn.pixabay.com/download/audio/2023/03/16/audio_3898a2cbdf.mp3?filename=ambient-chill-lofi-143917.mp3",
-    bpm: 90
-  },
-  track4: {
-    url: "https://cdn.pixabay.com/download/audio/2023/02/14/audio_504a76801b.mp3?filename=bounce-little-drummer-137642.mp3",
+    url: "https://assets.mixkit.co/music/preview/mixkit-french-jazz-cafe-82.mp3",
     bpm: 120
   },
-  track5: {
-    url: "https://cdn.pixabay.com/download/audio/2023/05/17/audio_6dcb156333.mp3?filename=fashionable-upbeat-corporate-146553.mp3",
-    bpm: 128
-  },
-  // Xmas tracks from hypothetical second source or a different link
-  track6: {
-    url: "https://cdn.pixabay.com/download/audio/2022/12/02/audio_89aabbccdd.mp3?filename=xmas-bells-demo.mp3",
+  track3: {
+    url: "https://assets.mixkit.co/music/preview/mixkit-summer-morning-690.mp3",
     bpm: 100
   },
-  track7: {
-    url: "https://cdn.pixabay.com/download/audio/2022/12/15/audio_ffaabb1122.mp3?filename=xmas-carol-chorus.mp3",
+  track4: {
+    url: "https://assets.mixkit.co/music/preview/mixkit-latenight-lofi-503.mp3",
     bpm: 85
+  },
+  // Xmas vibe or holiday track
+  track5: {
+    url: "https://assets.mixkit.co/music/preview/mixkit-a-holiday-in-france-75.mp3",
+    bpm: 128
+  },
+  track6: {
+    url: "https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3",
+    bpm: 110
   }
 };
 
 /** 
  * Sample library for performance pads 
- * (unchanged from previous examples, but Xmas pads possible if you want)
  */
 const sampleLib = {
   sample1: "https://cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3",
@@ -121,13 +115,11 @@ function clearError() {
 }
 
 /***********************************************
- 4) URL Security
-   We disclaim YouTube won't load raw audio 
-   due to DRM. We check for https://
+ 4) Security Check & No YouTube
 ***********************************************/
 function isSecureUrl(url) {
-  // If user tries "https://youtube.com/watch?v=...", it won't load anyway.
-  // We just do a basic check for "https://"
+  // This won't handle YouTube links if the user tries "https://youtube.com/..."
+  // They won't load due to DRM. We'll fallback anyway.
   return url.startsWith("https://");
 }
 
@@ -179,7 +171,7 @@ function initWaveSurfers() {
 ***********************************************/
 function loadTrackLeft(url) {
   if (!isSecureUrl(url)) {
-    showError("Left deck: Insecure or YouTube link, fallback used.");
+    showError("Left deck: Insecure/YouTube link => fallback used.");
     waveSurferLeft.load(FALLBACK_URL);
     return;
   }
@@ -201,7 +193,7 @@ function loadTrackLeft(url) {
 
 function loadTrackRight(url) {
   if (!isSecureUrl(url)) {
-    showError("Right deck: Insecure or YouTube link, fallback used.");
+    showError("Right deck: Insecure/YouTube link => fallback used.");
     waveSurferRight.load(FALLBACK_URL);
     return;
   }
@@ -228,7 +220,7 @@ loadLeftBtn.addEventListener("click", () => {
   clearError();
   const sel = selectLeft.value;
   if (!sel || !trackLibrary[sel]) {
-    showError("No valid library track for left deck, fallback used.");
+    showError("No valid library track for left deck => fallback used.");
     waveSurferLeft.load(FALLBACK_URL);
     return;
   }
@@ -239,7 +231,7 @@ loadLeftUrlBtn.addEventListener("click", () => {
   clearError();
   const url = customLeftUrl.value.trim();
   if (!url) {
-    showError("Left deck: No URL, fallback used.");
+    showError("Left deck: No URL => fallback used.");
     waveSurferLeft.load(FALLBACK_URL);
     return;
   }
@@ -250,7 +242,7 @@ loadRightBtn.addEventListener("click", () => {
   clearError();
   const sel = selectRight.value;
   if (!sel || !trackLibrary[sel]) {
-    showError("No valid library track for right deck, fallback used.");
+    showError("No valid library track for right deck => fallback used.");
     waveSurferRight.load(FALLBACK_URL);
     return;
   }
@@ -261,7 +253,7 @@ loadRightUrlBtn.addEventListener("click", () => {
   clearError();
   const url = customRightUrl.value.trim();
   if (!url) {
-    showError("Right deck: No URL, fallback used.");
+    showError("Right deck: No URL => fallback used.");
     waveSurferRight.load(FALLBACK_URL);
     return;
   }
@@ -343,13 +335,12 @@ jogWheelRight.addEventListener("click", () => {
  12) Tempo Match
 ***********************************************/
 tempoMatchBtn.addEventListener("click", () => {
-  alert("Tempo match not fully implemented in this Xmas scaffold.");
+  alert("Tempo match not fully implemented in Xmas scaffold.");
 });
 
 /***********************************************
  13) Manual Looping
 ***********************************************/
-// waveSurferLeft on finish is set in initWaveSurfers
 waveSurferLeft && waveSurferLeft.on("finish", () => {
   if (leftLoopActive && leftLoopIn !== null && leftLoopOut !== null) {
     waveSurferLeft.seekTo(leftLoopIn / waveSurferLeft.getDuration());
@@ -441,7 +432,7 @@ rightDoubleSpeedBtn.addEventListener("click", () => {
 });
 
 /***********************************************
- 15) On DOM load
+ 15) On DOMContentLoaded
 ***********************************************/
 document.addEventListener("DOMContentLoaded", () => {
   initWaveSurfers();

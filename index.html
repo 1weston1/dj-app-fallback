@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>DJ App Fallback + Xmas Theme + Extra Library</title>
+    <title>DJ App Fallback + Xmas Theme + Free Library</title>
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css" />
@@ -26,33 +26,30 @@
   </head>
   <body>
     <header>
-      <h1>DJ App Fallback (Xmas Style) + Security + Tests</h1>
+      <h1>DJ App Fallback (Xmas Theme + Free Tracks) + Tests</h1>
     </header>
 
-    <!-- Xmas Banner / Theme Decor -->
+    <!-- Xmas Banner / Decor -->
     <div id="christmasBanner">
-      <p>🎄 Merry Christmas! Enjoy the Holiday DJ Experience 🎄</p>
+      <p>🎄 Merry Christmas! Spin Some Festive Tracks 🎄</p>
     </div>
 
     <!-- DJ Lessons & Resources -->
     <section id="djLessons">
-      <h2>DJ Lessons & Resources</h2>
+      <h2>DJ Lessons & Resources (Free)</h2>
       <ul>
-        <li><a href="https://www.digitaldjtips.com/" target="_blank">Digital DJ Tips</a></li>
-        <li><a href="https://djtechtools.com/" target="_blank">DJ TechTools</a></li>
-        <li><a href="https://serato.com/academy" target="_blank">Serato Academy</a></li>
+        <li><a href="https://djingpro.com/" target="_blank">DJingPro (Free Guides)</a></li>
+        <li><a href="https://crossfadr.com/" target="_blank">Crossfadr (Articles/Tips)</a></li>
         <li><a href="https://www.reddit.com/r/DJs/" target="_blank">Reddit /r/DJs</a></li>
       </ul>
       <p>
-        Check <em>DJ_error_log.txt</em> for any references if audio fails 
+        Check <em>DJ_error_log.txt</em> if audio fails 
         (<strong>403 errors</strong>, <strong>AudioContext not allowed</strong>, 
-        or <strong>YouTube DRM blocks</strong>).
+        or <strong>YouTube blocks</strong>).
       </p>
       <p>
-        <strong>Note on YouTube:</strong> Unfortunately, you can’t directly load a 
-        normal YouTube URL into WaveSurfer or raw HTML audio due to 
-        <em>DRM/CORS restrictions</em>. 
-        We recommend using official YouTube APIs or a different hosted MP3 link.
+        <strong>Note:</strong> YouTube audio won't load directly due to 
+        <em>DRM/CORS restrictions</em>.
       </p>
     </section>
 
@@ -68,46 +65,39 @@
         <div class="jogWheel" id="jogWheelLeft">
           <div class="jogLabel">Left Deck</div>
         </div>
-
         <div class="padsRow" id="padsLeft">
           <button class="padBtn" data-sample="sample1">Pad1</button>
           <button class="padBtn" data-sample="sample2">Pad2</button>
           <button class="padBtn" data-sample="sample3">Pad3</button>
           <button class="padBtn" data-sample="sample4">Pad4</button>
         </div>
-
         <div class="deckControls">
           <label>Vol A</label>
           <input type="range" id="volumeA" min="0" max="1" step="0.01" value="1"/>
         </div>
-
-        <!-- Waveform -->
         <div class="waveformContainer" id="waveformLeft"></div>
-
-        <!-- Loop Controls -->
         <div class="loopControls">
           <button id="leftLoopInBtn">IN</button>
           <button id="leftLoopOutBtn">OUT</button>
           <button id="leftLoopToggleBtn">Loop On/Off</button>
         </div>
-
-        <!-- Advanced Controls -->
         <div class="advancedControls">
           <button id="leftQuantizeBtn">Quantize</button>
           <button id="leftHalfSpeedBtn">1/2x</button>
           <button id="leftDoubleSpeedBtn">2x</button>
         </div>
 
-        <!-- Track Loader with Another Library -->
+        <!-- Track Loader with a More Robust Library -->
         <div class="trackLoader">
           <label for="selectLeft">Library Track:</label>
           <select id="selectLeft">
             <option value="">--Select--</option>
-            <option value="track1">Hip Hop Loop</option>
-            <option value="track2">House Beat</option>
-            <!-- Additional Xmas Source from another site -->
-            <option value="track6">Xmas Bells</option>
-            <option value="track7">Xmas Carol</option>
+            <option value="track1">City Walk</option>
+            <option value="track2">French Jazz Cafe</option>
+            <option value="track3">Summer Morning</option>
+            <option value="track4">LateNight Lofi</option>
+            <option value="track5">Holiday in France</option>
+            <option value="track6">A Very Happy Christmas</option>
           </select>
           <button id="loadLeftBtn">Load Left</button>
 
@@ -131,43 +121,38 @@
         <div class="jogWheel" id="jogWheelRight">
           <div class="jogLabel">Right Deck</div>
         </div>
-
         <div class="padsRow" id="padsRight">
           <button class="padBtn" data-sample="sample5">Pad1</button>
           <button class="padBtn" data-sample="sample6">Pad2</button>
           <button class="padBtn" data-sample="sample7">Pad3</button>
           <button class="padBtn" data-sample="sample8">Pad4</button>
         </div>
-
         <div class="deckControls">
           <label>Vol B</label>
           <input type="range" id="volumeB" min="0" max="1" step="0.01" value="1"/>
         </div>
-
         <div class="waveformContainer" id="waveformRight"></div>
-
         <div class="loopControls">
           <button id="rightLoopInBtn">IN</button>
           <button id="rightLoopOutBtn">OUT</button>
           <button id="rightLoopToggleBtn">Loop On/Off</button>
         </div>
-
         <div class="advancedControls">
           <button id="rightQuantizeBtn">Quantize</button>
           <button id="rightHalfSpeedBtn">1/2x</button>
           <button id="rightDoubleSpeedBtn">2x</button>
         </div>
 
-        <!-- Another Library -->
         <div class="trackLoader">
           <label for="selectRight">Library Track:</label>
           <select id="selectRight">
             <option value="">--Select--</option>
-            <option value="track1">Hip Hop Loop</option>
-            <option value="track2">House Beat</option>
-            <!-- Xmas sources -->
-            <option value="track6">Xmas Bells</option>
-            <option value="track7">Xmas Carol</option>
+            <option value="track1">City Walk</option>
+            <option value="track2">French Jazz Cafe</option>
+            <option value="track3">Summer Morning</option>
+            <option value="track4">LateNight Lofi</option>
+            <option value="track5">Holiday in France</option>
+            <option value="track6">A Very Happy Christmas</option>
           </select>
           <button id="loadRightBtn">Load Right</button>
 
