@@ -1,14 +1,15 @@
-QUnit.module("DJ App Security & Fallback Tests");
+QUnit.module("DJ App Security & Xmas Fallback Tests");
 
 // 1) isSecureUrl checks
 QUnit.test("isSecureUrl function", assert => {
   assert.ok(isSecureUrl("https://example.com/track.mp3"), "HTTPS is valid");
   assert.notOk(isSecureUrl("http://mysite.com/track.mp3"), "HTTP is invalid");
-  assert.notOk(isSecureUrl("ftp://someplace/track.mp3"), "FTP is invalid");
+  assert.notOk(isSecureUrl("ftp://something/track.mp3"), "FTP is invalid");
 });
 
 // 2) Manual Loop toggles
 QUnit.test("Loop toggles (left/right)", assert => {
+  // leftLoopActive, rightLoopActive presumably start false
   assert.notOk(leftLoopActive, "Left loop OFF initially");
   leftLoopActive = !leftLoopActive;
   assert.ok(leftLoopActive, "Left loop toggled ON");
@@ -20,8 +21,8 @@ QUnit.test("Loop toggles (left/right)", assert => {
   assert.ok(rightLoopActive, "Right loop toggled ON");
 });
 
-// 3) HEAD check + fallback in loadTrackLeft
-QUnit.test("loadTrackLeft HEAD + fallback", assert => {
+// 3) HEAD check + fallback with Xmas tracks
+QUnit.test("loadTrackLeft HEAD + fallback, Xmas library", assert => {
   const originalFetch = fetch;
   const done = assert.async();
 
@@ -36,14 +37,14 @@ QUnit.test("loadTrackLeft HEAD + fallback", assert => {
     return Promise.resolve({ ok: false, status: 403, statusText: "Forbidden" });
   };
 
-  // Secure success
-  loadTrackLeft("https://valid.com/track.mp3");
-  // Secure fail => fallback
-  loadTrackLeft("https://forbidden.com/nope.mp3");
-  // Insecure => fallback
-  loadTrackLeft("http://insecure.com/sound.mp3");
+  // test a valid Xmas track
+  loadTrackLeft("https://valid.com/xmas-bells.mp3");
+  // test a fail => fallback
+  loadTrackLeft("https://forbidden.com/xmas-fail.mp3");
+  // insecure => fallback
+  loadTrackLeft("http://insecure.com/xmas.mp3");
 
-  assert.ok(true, "Verified fallback logic for loadTrackLeft");
+  assert.ok(true, "Verified fallback logic for Xmas tracks");
   fetch = originalFetch;
   done();
 });
