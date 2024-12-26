@@ -2603,6 +2603,64 @@ With these updates, the preloaded library is more likely to produce actual audio
 Enjoy your error-proof DJ app that logs to DJ_error_log.txt conceptually, always loads some track (fallback if needed), and includes robust security checks and unit tests!
 
 
+new error 
+audio-context-constructor.js:11 The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+(anonymous) @ audio-context-constructor.js:11Understand this warningAI
+test-audio-scheduled-source-node-start-method-negative-parameters-support.js:4 The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+oe @ test-audio-scheduled-source-node-start-method-negative-parameters-support.js:4Understand this warningAI
+constant-source-node-constructor.js:42 The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+start @ constant-source-node-constructor.js:42Understand this warningAI
+dj-app-fallback/:25 Failed to find a valid digest in the 'integrity' attribute for resource 'https://code.jquery.com/qunit/qunit-2.19.2.css' with computed SHA-256 integrity 'DvxFBdnQ63yvEVXaXCz1qTEp6mfANjBrxdtkl2wzGu4='. The resource has been blocked.Understand this errorAI
+dj-app-fallback/:1 Failed to find a valid digest in the 'integrity' attribute for resource 'https://code.jquery.com/qunit/qunit-2.19.2.js' with computed SHA-256 integrity 'aGOcP9xGcjJDW90pj6Nt+EVdWqdMx4J6SOjpkMnsUBY='. The resource has been blocked.Understand this errorAI
+test.js:1 Uncaught ReferenceError: QUnit is not defined
+    at test.js:1:1Understand this errorAI
+favicon.ico:1 
+        
+        
+       Failed to load resource: the server responded with a status of 404 ()Understand this errorAI
+index.tsx-0e503e6c.js:40 Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()Understand this errorAI
+cdn.pixabay.com/download/audio/2022/10/07/audio_4c9fa94b2f.mp3?filename=kick-121902.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()Understand this errorAI
+dj-app-fallback/:1 Access to fetch at 'https://cdn.pixabay.com/download/audio/2022/11/11/audio_eea39c0897.mp3?filename=hip-hop-loop-12295.mp3' from origin 'https://1weston1.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.Understand this errorAI
+cdn.pixabay.com/download/audio/2022/11/11/audio_eea39c0897.mp3?filename=hip-hop-loop-12295.mp3:1 
+        
+        
+       Failed to load resource: net::ERR_FAILEDUnderstand this errorAI
+script.js:81 [DJ_error_log] Left deck HEAD failed, fallback used: TypeError: Failed to fetch
+djErrorLog @ script.js:81Understand this errorAI
+dj-app-fallback/:1 Uncaught (in promise) AbortError: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22Understand this errorAI
+cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()Understand this errorAI
+dj-app-fallback/:1 Uncaught (in promise) AbortError: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22Understand this errorAI
+script.js:81 [DJ_error_log] Left deck: No URL, fallback used.
+djErrorLog @ script.js:81Understand this errorAI
+script.js:81 [DJ_error_log] Right deck: No URL, fallback used.
+djErrorLog @ script.js:81Understand this errorAI
+favicon.ico:1 
+        
+        
+       Failed to load resource: the server responded with a status of 404 ()Understand this errorAI
+cdn.pixabay.com/download/audio/2022/10/07/audio_4c9fa94b2f.mp3?filename=kick-121902.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()Understand this errorAI
+cdn.pixabay.com/download/audio/2022/10/07/audio_207bb1072e.mp3?filename=hihat-121900.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()Understand this errorAI
+cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3:1 
+        
+        
+       Failed to load resource: the server responded with a status of 403 ()
 
 
 
+Below is a complete four-file scaffold for your DJ app named dj-app-fallback/, updated to include more album tracks (track3, track4, track5). The code still uses fallback logic if remote MP3s fail (403 or insecure). This ensures you have a larger preloaded library of tracks while retaining the security checks and predictive error handling that references DJ_error_log.txt.

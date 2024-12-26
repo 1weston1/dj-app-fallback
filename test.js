@@ -4,12 +4,11 @@ QUnit.module("DJ App Security & Fallback Tests");
 QUnit.test("isSecureUrl function", assert => {
   assert.ok(isSecureUrl("https://example.com/track.mp3"), "HTTPS is valid");
   assert.notOk(isSecureUrl("http://mysite.com/track.mp3"), "HTTP is invalid");
-  assert.notOk(isSecureUrl("ftp://somewhere/track.mp3"), "FTP is invalid");
+  assert.notOk(isSecureUrl("ftp://someplace/track.mp3"), "FTP is invalid");
 });
 
 // 2) Manual Loop toggles
 QUnit.test("Loop toggles (left/right)", assert => {
-  // leftLoopActive / rightLoopActive presumably start false
   assert.notOk(leftLoopActive, "Left loop OFF initially");
   leftLoopActive = !leftLoopActive;
   assert.ok(leftLoopActive, "Left loop toggled ON");
@@ -29,7 +28,7 @@ QUnit.test("loadTrackLeft HEAD + fallback", assert => {
   let fetchCount = 0;
   fetch = function(url, opts) {
     fetchCount++;
-    assert.equal(opts.method, "HEAD", "HEAD method used for track load");
+    assert.equal(opts.method, "HEAD", "HEAD method for track load");
     if (url.includes("valid")) {
       return Promise.resolve({ ok: true });
     }

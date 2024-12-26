@@ -2,11 +2,16 @@
  1) Basic Libraries (with fallback approach)
 ***********************************************/
 /**
- * If the remote links fail (e.g., 403 or blocked), we fall back
- * to "test.mp3" (a local file). Place "test.mp3" in the same folder.
+ * If remote links fail (403 or insecure), we load "test.mp3" locally.
+ * Make sure test.mp3 is in this same folder if you want real fallback audio.
  */
 const FALLBACK_URL = "test.mp3";
 
+/** 
+ * Extended library with five tracks:
+ *  track1, track2 from original
+ *  track3, track4, track5 newly added
+ */
 const trackLibrary = {
   track1: {
     url: "https://cdn.pixabay.com/download/audio/2022/11/11/audio_eea39c0897.mp3?filename=hip-hop-loop-12295.mp3",
@@ -15,9 +20,24 @@ const trackLibrary = {
   track2: {
     url: "https://cdn.pixabay.com/download/audio/2022/12/07/audio_d444a22479.mp3?filename=house-beat-12624.mp3",
     bpm: 125
+  },
+  track3: {
+    url: "https://cdn.pixabay.com/download/audio/2023/03/16/audio_3898a2cbdf.mp3?filename=ambient-chill-lofi-143917.mp3",
+    bpm: 90
+  },
+  track4: {
+    url: "https://cdn.pixabay.com/download/audio/2023/02/14/audio_504a76801b.mp3?filename=bounce-little-drummer-137642.mp3",
+    bpm: 120
+  },
+  track5: {
+    url: "https://cdn.pixabay.com/download/audio/2023/05/17/audio_6dcb156333.mp3?filename=fashionable-upbeat-corporate-146553.mp3",
+    bpm: 128
   }
 };
 
+/** 
+ * Sample library for performance pads
+ */
 const sampleLib = {
   sample1: "https://cdn.pixabay.com/download/audio/2022/10/07/audio_e6bacf4ca6.mp3?filename=clap-121899.mp3",
   sample2: "https://cdn.pixabay.com/download/audio/2022/10/07/audio_4c9fa94b2f.mp3?filename=kick-121902.mp3",
@@ -200,6 +220,7 @@ loadLeftBtn.addEventListener("click", () => {
   }
   loadTrackLeft(trackLibrary[sel].url);
 });
+
 loadLeftUrlBtn.addEventListener("click", () => {
   clearError();
   const url = customLeftUrl.value.trim();
@@ -221,6 +242,7 @@ loadRightBtn.addEventListener("click", () => {
   }
   loadTrackRight(trackLibrary[sel].url);
 });
+
 loadRightUrlBtn.addEventListener("click", () => {
   clearError();
   const url = customRightUrl.value.trim();
@@ -313,7 +335,20 @@ tempoMatchBtn.addEventListener("click", () => {
 /***********************************************
 13) Manual Looping
 ***********************************************/
-// waveSurferLeft on finish is set in initWaveSurfers
+waveSurferLeft && waveSurferLeft.on("finish", () => {
+  if (leftLoopActive && leftLoopIn !== null && leftLoopOut !== null) {
+    waveSurferLeft.seekTo(leftLoopIn / waveSurferLeft.getDuration());
+    waveSurferLeft.play();
+  }
+});
+waveSurferRight && waveSurferRight.on("finish", () => {
+  if (rightLoopActive && rightLoopIn !== null && rightLoopOut !== null) {
+    waveSurferRight.seekTo(rightLoopIn / waveSurferRight.getDuration());
+    waveSurferRight.play();
+  }
+});
+
+// Left
 leftLoopInBtn.addEventListener("click", () => {
   if (waveSurferLeft) {
     leftLoopIn = waveSurferLeft.getCurrentTime();
@@ -331,7 +366,7 @@ leftLoopToggleBtn.addEventListener("click", () => {
   alert(`Left deck loop => ${leftLoopActive ? "ON" : "OFF"}`);
 });
 
-// waveSurferRight on finish is set in initWaveSurfers
+// Right
 rightLoopInBtn.addEventListener("click", () => {
   if (waveSurferRight) {
     rightLoopIn = waveSurferRight.getCurrentTime();
